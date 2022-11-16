@@ -25,6 +25,10 @@ def check_output_file_path_not_exists(path: str)->str:
     return path
 
 
+def format_text(text: str, prefix: str, suffix: str):
+    return f'{prefix}{text}{suffix}'
+
+
 def highlight_span(text: str, span: Tuple[int], n_match: int)->str:
     '''
         Take a text, a span in that text and a number of previous highlighted
