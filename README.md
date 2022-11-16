@@ -6,7 +6,7 @@ For using it, follow the instructions:
 1. Clone this repo:
 
     ```{bash}
-    git clone https://github.com/macfernandez/regex-query-tool.git
+    git clone https://github.com/macfernandez/regex-query-tool
     ```
 
 2. Create an environment (optional, but highly recommended).
