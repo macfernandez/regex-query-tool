@@ -4,20 +4,38 @@ from unittest import mock
 from src import utilities
 
 
+# test_given_no_input_when_ask_new_file_path_runs
+# test_given_path_when_ask_overwrite_runs
+
 @mock.patch('os.path.exists',  return_value=True)
 def test_given_path_when_check_input_file_path_exists_runs_then_returns_None_if_path_exists(mock_exists):
-    assert utilities.check_file_path_exists('dummy_path') is None
+    assert utilities.check_input_file_path_exists('dummy_path') is None
 
 
 @mock.patch('os.path.exists',  return_value=False)
 def test_given_path_when_check_input_file_path_exists_runs_then_raises_FileNotFound_if_path_not_exists(mock_exists):
     path = 'dummy_path'
     with pytest.raises(FileNotFoundError, match=rf'File {path} not found.'):
-        utilities.check_file_path_exists(path)
+        utilities.check_input_file_path_exists(path)
 
 
 def test_given_path_when_check_output_file_path_not_exists_runs_then_returns_ ():
     assert True
+
+
+@pytest.mark.parametrize('text, prefix, suffix, expected_string', [
+    ('text', 'prefix-', '-suffix', 'prefix-text-suffix'),
+    ('text', '', '-suffix', 'text-suffix'),
+    ('text', 'prefix-', '', 'prefix-text'),
+    ('', 'prefix-', '-suffix', 'prefix--suffix'),
+    ('text', ' ', '-suffix', ' text-suffix'),
+    ('text', 'prefix-', ' ', 'prefix-text '),
+    (' ', 'prefix-', '-suffix', 'prefix- -suffix'),
+])
+def test_given_text_prefix_suffix_when_format_text_runs_then_returns_expected_string(
+    text, prefix, suffix, expected_string
+    ):
+    assert utilities.format_text(text, prefix, suffix) == expected_string
 
 
 @pytest.mark.parametrize('text, span, n_match, expected_string', [

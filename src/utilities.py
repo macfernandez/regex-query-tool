@@ -6,7 +6,7 @@ def ask_new_file_path()->str:
     return input('New path: ')
 
 
-def ask_overwritte(path: str)->bool:
+def ask_overwrite(path: str)->bool:
     overwritte = input(f'File {path} already exists. Overwritte? y/n: ')
     return overwritte in ['y','Y','']
 
@@ -18,14 +18,14 @@ def check_input_file_path_exists(path: str)->None:
 
 def check_output_file_path_not_exists(path: str)->str:
     if os.path.exists(path):
-        overwritte = ask_overwritte(path)
+        overwritte = ask_overwrite(path)
         if not overwritte:
             path = ask_new_file_path()
             path = check_output_file_path_not_exists(path)
     return path
 
 
-def format_text(text: str, prefix: str, suffix: str):
+def format_text(text: str, prefix: str, suffix: str)->str:
     return f'{prefix}{text}{suffix}'
 
 
