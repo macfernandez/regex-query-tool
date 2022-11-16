@@ -4,8 +4,24 @@ from unittest import mock
 from src import utilities
 
 
-# test_given_no_input_when_ask_new_file_path_runs
-# test_given_path_when_ask_overwrite_runs
+@mock.patch('builtins.input',  return_value='dummy_path')
+def test_given_no_input_when_ask_new_file_path_runs_then_returns_user_string(dummy_input):
+    assert utilities.ask_new_file_path() == 'dummy_path'
+
+
+@mock.patch('builtins.input')
+@pytest.mark.parametrize('user_input, expected_bool', [
+    ('y', True),
+    ('Y', True),
+    ('', True),
+    ('n', False),
+    ('s', False),
+    ('8', False)
+])
+def test_given_user_input_when_ask_overwrite_runs_then_returns_expected_bool(mocked_input, user_input, expected_bool):
+    mocked_input.return_value = user_input
+    assert utilities.ask_overwrite('dummy_path') == expected_bool
+
 
 @mock.patch('os.path.exists',  return_value=True)
 def test_given_path_when_check_input_file_path_exists_runs_then_returns_None_if_path_exists(mock_exists):
