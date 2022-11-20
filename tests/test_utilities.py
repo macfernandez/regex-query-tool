@@ -18,8 +18,8 @@ def test_given_no_input_when_ask_new_file_path_runs_then_returns_user_string(dum
     ('s', False),
     ('8', False)
 ])
-def test_given_user_input_when_ask_overwrite_runs_then_returns_expected_bool(mocked_input, user_input, expected_bool):
-    mocked_input.return_value = user_input
+def test_given_path_when_ask_overwrite_runs_then_returns_expected_bool(mock_input, user_input, expected_bool):
+    mock_input.return_value = user_input
     assert utilities.ask_overwrite('dummy_path') == expected_bool
 
 
@@ -35,8 +35,23 @@ def test_given_path_when_check_input_file_path_exists_runs_then_raises_FileNotFo
         utilities.check_input_file_path_exists(path)
 
 
-def test_given_path_when_check_output_file_path_not_exists_runs_then_returns_ ():
-    assert True
+@mock.patch('os.path.exists')
+@mock.patch('src.utilities.ask_overwrite')
+@mock.patch('src.utilities.ask_new_file_path')
+@pytest.mark.parametrize('path, path_exists, overwrite, new_path, expected_path', [
+    ('dummy_path', [False], None, None, 'dummy_path'),
+    ('dummy_path', [True], True, None, 'dummy_path'),
+    ('dummy_path', [True], True, None, 'dummy_path'),
+    ('dummy_path', [True], True, None, 'dummy_path'),
+    #('dummy_path', [True, False], False, 'chicho', 'chicho') TODO: research how to test this case
+])
+def test_given_path_when_check_output_file_path_not_exists_runs_then_returns_expected_path(
+    mock_exists, mock_overwirte, mock_new_file_path, path, path_exists, overwrite, new_path, expected_path
+    ):
+    mock_exists.side_effect = path_exists
+    mock_overwirte.return_value = overwrite
+    mock_new_file_path.return_value = new_path
+    assert utilities.check_output_file_path_not_exists(path) == expected_path
 
 
 @pytest.mark.parametrize('text, prefix, suffix, expected_string', [
