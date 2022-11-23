@@ -35,23 +35,28 @@ def test_given_path_when_check_input_file_path_exists_runs_then_raises_FileNotFo
         utilities.check_input_file_path_exists(path)
 
 
-@mock.patch('os.path.exists')
-@mock.patch('src.utilities.ask_overwrite')
-@mock.patch('src.utilities.ask_new_file_path')
-@pytest.mark.parametrize('path, path_exists, overwrite, new_path, expected_path', [
-    ('dummy_path', [False], None, None, 'dummy_path'),
-    ('dummy_path', [True], True, None, 'dummy_path'),
-    ('dummy_path', [True], True, None, 'dummy_path'),
-    ('dummy_path', [True], True, None, 'dummy_path'),
-    #('dummy_path', [True, False], False, 'chicho', 'chicho') TODO: research how to test this case
-])
-def test_given_path_when_check_output_file_path_not_exists_runs_then_returns_expected_path(
-    mock_exists, mock_overwirte, mock_new_file_path, path, path_exists, overwrite, new_path, expected_path
+@mock.patch('os.path.exists', name='exists', return_value=False)
+def test_given_non_existent_path_when_check_output_file_path_not_exists_runs_then_returns_same_path(
+    exists
     ):
-    mock_exists.side_effect = path_exists
-    mock_overwirte.return_value = overwrite
-    mock_new_file_path.return_value = new_path
-    assert utilities.check_output_file_path_not_exists(path) == expected_path
+    assert utilities.check_output_file_path_not_exists('dummy_path') == 'dummy_path'
+
+
+@mock.patch('os.path.exists', name='exists', return_value=True)
+@mock.patch('src.utilities.ask_overwrite', name='overwrite', return_value=True)
+def test_given_existent_path_when_check_output_file_path_not_exists_runs_then_returns_same_path_if_overwrite(
+    exists, overwrite
+    ):
+    assert utilities.check_output_file_path_not_exists('dummy_path') == 'dummy_path'
+
+
+@mock.patch('os.path.exists', name='exists', side_effect=[True, False])
+@mock.patch('src.utilities.ask_overwrite', name='overwrite', return_value=False)
+@mock.patch('src.utilities.ask_new_file_path', name='new_file_path', return_value='new_dummy_path')
+def test_given_existent_path_when_check_output_file_path_not_exists_runs_then_returns_new_path_if_not_overwrite(
+    exists, overwrite, new_file_path
+    ):
+    assert utilities.check_output_file_path_not_exists('dummy_path') == 'new_dummy_path'
 
 
 @pytest.mark.parametrize('text, prefix, suffix, expected_string', [
