@@ -1,5 +1,7 @@
 # Regex Query Tool
 
+<img alt="Code coverage" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/macfernandez/4c379c3359827d18faef6e848a501031/raw/regex-query-tool-coverage.json&?style=plastic&logo=appveyor" />
+
 This is my Regex Query Tool. It was developed to test regex patterns in python.
 For using it, follow the instructions:
 
