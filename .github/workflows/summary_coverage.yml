@@ -24,12 +24,11 @@ jobs:
       - name: Build coverage file
         run: |
           mkdir -p coverage
-          python -m pytest --cache-clear --cov-report=term-missing --cov=src/ | tee coverage/pytest-coverage.txt
+          python -m pytest --cache-clear --junitxml=coverage/pytest.xml --cov-report=term-missing --cov=src/ | tee coverage/pytest-coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-coverage-path: pytest-coverage.txt
-          #--junitxml=coverage/pytest.xml
-          #junitxml-path: ./pytest.xml
+          junitxml-path: pytest.xml
           coverage-path-prefix: coverage
-          badge-titel: coverage
+          badge-title: coverage
