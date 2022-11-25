@@ -33,6 +33,6 @@ jobs:
           label: coverage
           message: ${{ env.COVERAGE }}
           valColorRange: ${{ env.COVERAGE_NUM }}
-          maxColorRange: 70
-          minColorRange: 30
+          maxColorRange: 100
+          minColorRange: 0
 
