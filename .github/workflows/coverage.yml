@@ -32,7 +32,7 @@ jobs:
           filename: regex-query-tool-coverage.json
           label: coverage
           message: ${{ env.COVERAGE }}
-          valColorRange: ${{ env.VAL_COVERAGE }}
+          valColorRange: ${{ env.COVERAGE_NUM }}
           maxColorRange: 70
           minColorRange: 30
 
