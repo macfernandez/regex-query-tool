@@ -20,8 +20,10 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          TOTAL_COV="$(python -m pytest --cov=src --cov-report term | grep TOTAL | grep -oP "[0-9]+%")"
-          echo "COVERAGE=$(echo $TOTAL_COV)" >> $GITHUB_ENV
+          PERC_COV="$(python -m pytest --cov=src --cov-report term | grep TOTAL | grep -oP "[0-9]+%")"
+          NUM_COV="$(echo $PERC_COV | grep -oP [0-9]+)"
+          echo "COVERAGE=$(echo $PERC_COV)" >> $GITHUB_ENV
+          echo "COVERAGE_NUM=$(($NUM_COV))" >> $GITHUB_ENV
       - name: Create Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
@@ -30,7 +32,7 @@ jobs:
           filename: regex-query-tool-coverage.json
           label: coverage
           message: ${{ env.COVERAGE }}
-          valColorRange: ${{ env.COVERAGE }}
+          valColorRange: ${{ env.VAL_COVERAGE }}
           maxColorRange: 70
           minColorRange: 30
 
