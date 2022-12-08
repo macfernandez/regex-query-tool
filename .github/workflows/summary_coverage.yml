@@ -24,7 +24,7 @@ jobs:
       - name: Build coverage file
         run: |
           mkdir -p coverage
-          coverage run -m pytest --cache-clear --junitxml=coverage/pytest.xml | tee coverage/pytest-coverage.txt
+          coverage run -m pytest --cache-clear --junitxml=coverage/pytest.xml --cov=src/ --cov-report=term-missing | tee coverage/pytest-coverage.tx
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
