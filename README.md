@@ -1,6 +1,6 @@
 # Regex Query Tool
 
-<img alt="Code coverage" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/macfernandez/4c379c3359827d18faef6e848a501031/raw/regex-query-tool-coverage.json" />
+<img alt="Code coverage" src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/macfernandez/4c379c3359827d18faef6e848a501031/raw/regex-query-tool-coverage.json&?style=plastic" />
 
 This is my Regex Query Tool. It was developed to test regex patterns in python.
 For using it, follow the instructions:
