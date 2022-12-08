@@ -23,7 +23,7 @@ if args.file:
 else:
     texts = [args.input]
 
-matches = list(pattern.find_pattern(texts))
+matches = pattern.find_pattern(texts)
 
 if not args.silent:
     output = pattern.highlight_text(texts, matches)

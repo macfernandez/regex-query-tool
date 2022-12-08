@@ -37,8 +37,11 @@ class RegexPattern():
     def _generate_file_output(self, texts: List[str], matches: List[re.Match])->str:
         output = 'input,match,span_start,span_end\n'
         for text, match in zip(texts, matches):
-            for m in match:
-                output += f'{text},{m.group()},{m.start()},{m.end()}\n'
+            if match:
+                for m in match:
+                    output += f'{text},{m.group()},{m.start()},{m.end()}\n'
+            else:
+                output += f'{text},{None},{None},{None}\n'
         return output
 
 
