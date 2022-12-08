@@ -18,13 +18,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Test with pytest
-        run: |
-          python -m pytest --cov=src --cov-report xml:coverage/coverage.xml
+      #- name: Test with pytest
+      #  run: |
+      #    python -m pytest --cov=src --cov-report xml:coverage/coverage.xml
       - name: Build coverage file
         run: |
           mkdir -p coverage
-          python -m pytest --cache-clear --junitxml=coverage/pytest.xml --cov-report=term-missing --cov=src/ | tee coverage/pytest-coverage.txt
+          coverage run -m pytest --cache-clear --junitxml=coverage/pytest.xml | tee coverage/pytest-coverage.txt
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
