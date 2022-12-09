@@ -35,6 +35,31 @@ def test_given_path_when_check_input_file_path_exists_runs_then_raises_FileNotFo
         utilities.check_input_file_path_exists(path)
 
 
+#class MockOsPathExists():
+#    def __init__(self, name, false_after: int=0) -> None:
+#        self.counter = 0
+#        self.false_after = false_after
+#    def __call__(self, path:str):
+#        called = self.counter
+#        self.counter += 1
+#        return called < self.false_after
+#
+#
+#@pytest.fixture
+#def mock_ask_overwrite(monkeypatch):
+#    def _mock_ask_overwrite(path):
+#        _mock = mock.Mock()
+#        return _mock
+#    monkeypatch.setattr(utilities, 'ask_overwrite', _mock_ask_overwrite)
+#
+#@pytest.fixture
+#def mock_os_path_exists(monkeypatch, exists):
+#    def _mock_os_path_exists(path):
+#        _mock = mock.Mock()
+#        _mock.side_effect = exists
+#        return _mock
+#    monkeypatch.setattr(utilities.os.path, 'exists', _mock_os_path_exists)
+
 @mock.patch('os.path.exists', name='exists', return_value=False)
 def test_given_non_existent_path_when_check_output_file_path_not_exists_runs_then_returns_same_path(
     exists
